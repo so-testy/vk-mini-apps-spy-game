@@ -1,8 +1,10 @@
 import { atom } from 'recoil';
 import { v4 } from 'uuid';
 
+import { localStorageEffect } from '../../../utils/recoil';
+
 const locationsStore = atom({
-    key: 'locationsState',
+    key: 'locationsStore',
     default: [
         { id: v4(), name: 'Бассейн' },
         { id: v4(), name: 'Стадион' },
@@ -10,6 +12,7 @@ const locationsStore = atom({
         { id: v4(), name: 'Школа' },
         { id: v4(), name: 'Детский сад' },
     ],
+    effects: [localStorageEffect('locationsStore')],
 });
 
 export { locationsStore };
