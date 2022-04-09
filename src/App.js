@@ -2,7 +2,19 @@ import React, { useState, useEffect } from 'react';
 
 import { RecoilRoot } from 'recoil';
 import bridge from '@vkontakte/vk-bridge';
-import { View, AdaptivityProvider, AppRoot, Epic, Tabbar, TabbarItem, Panel, Root } from '@vkontakte/vkui';
+import {
+    View,
+    AdaptivityProvider,
+    AppRoot,
+    Epic,
+    Tabbar,
+    TabbarItem,
+    Panel,
+    Root,
+    SplitLayout,
+    SplitCol,
+    ModalRoot,
+} from '@vkontakte/vkui';
 import { Icon28GameOutline, Icon28PlaceOutline } from '@vkontakte/icons';
 
 import '@vkontakte/vkui/dist/vkui.css';
@@ -13,10 +25,12 @@ import DebugObserver from './utils/DebugObserver';
 import Timer from './screens/Game/panels/Timer';
 import useNavigation from './utils/useNavigation';
 import GameResult from './screens/Game/panels/GameResult';
+import CreateLocationModal from './screens/Locations/widgets/CreateLocationModal';
 
 const App = () => {
     const [activeStory, setActiveStory] = useState('game');
     const { screen: activeRootPanel, setScreen: setRootPanel } = useNavigation('main');
+    const { screen: activeModal, setScreen: setActiveModal } = useNavigation(null);
 
     const onStoryChange = e => setActiveStory(e.currentTarget.dataset.story);
 
@@ -42,50 +56,67 @@ const App = () => {
 
             <AdaptivityProvider>
                 <AppRoot>
-                    <Root activeView={activeRootPanel}>
-                        <View style={{ height: '100%' }} id="main">
-                            <Epic
-                                activeStory={activeStory}
-                                tabbar={
-                                    <Tabbar itemsLayout="vertical" shadow={false}>
-                                        <TabbarItem
-                                            onClick={onStoryChange}
-                                            selected={activeStory === 'game'}
-                                            data-story="game"
-                                            text="Игра"
-                                        >
-                                            <Icon28GameOutline />
-                                        </TabbarItem>
+                    <SplitLayout
+                        modal={
+                            <ModalRoot activeModal={activeModal}>
+                                <CreateLocationModal id="create-location" onClose={() => setActiveModal(null)} />
+                            </ModalRoot>
+                        }
+                    >
+                        <SplitCol>
+                            <Root activeView={activeRootPanel}>
+                                <View style={{ height: '100%' }} id="main">
+                                    <Epic
+                                        activeStory={activeStory}
+                                        tabbar={
+                                            <Tabbar itemsLayout="vertical" shadow={false}>
+                                                <TabbarItem
+                                                    onClick={onStoryChange}
+                                                    selected={activeStory === 'game'}
+                                                    data-story="game"
+                                                    text="Игра"
+                                                >
+                                                    <Icon28GameOutline />
+                                                </TabbarItem>
 
-                                        <TabbarItem
-                                            onClick={onStoryChange}
-                                            selected={activeStory === 'locations'}
-                                            data-story="locations"
-                                            text="Локации"
-                                        >
-                                            <Icon28PlaceOutline />
-                                        </TabbarItem>
-                                    </Tabbar>
-                                }
-                            >
-                                <View id="game" activePanel="root">
-                                    <Game id="root" onActivateTimer={() => setRootPanel('timer')} />
+                                                <TabbarItem
+                                                    onClick={onStoryChange}
+                                                    selected={activeStory === 'locations'}
+                                                    data-story="locations"
+                                                    text="Локации"
+                                                >
+                                                    <Icon28PlaceOutline />
+                                                </TabbarItem>
+                                            </Tabbar>
+                                        }
+                                    >
+                                        <View id="game" activePanel="root">
+                                            <Game id="root" onActivateTimer={() => setRootPanel('timer')} />
+                                        </View>
+
+                                        <View id="locations" activePanel="root">
+                                            <Locations
+                                                id="root"
+                                                onOpenLocationModal={() => setActiveModal('create-location')}
+                                                editable
+                                            />
+                                        </View>
+                                    </Epic>
                                 </View>
 
-                                <View id="locations" activePanel="root">
-                                    <Locations id="root" />
+                                <View id="timer">
+                                    <Timer
+                                        onBack={() => setRootPanel('main')}
+                                        onGameEnd={() => setRootPanel('result')}
+                                    />
                                 </View>
-                            </Epic>
-                        </View>
 
-                        <View id="timer">
-                            <Timer onBack={() => setRootPanel('main')} onGameEnd={() => setRootPanel('result')} />
-                        </View>
-
-                        <View id="result">
-                            <GameResult onBack={() => setRootPanel('main')} />
-                        </View>
-                    </Root>
+                                <View id="result">
+                                    <GameResult onBack={() => setRootPanel('main')} />
+                                </View>
+                            </Root>
+                        </SplitCol>
+                    </SplitLayout>
                 </AppRoot>
             </AdaptivityProvider>
         </RecoilRoot>

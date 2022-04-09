@@ -1,28 +1,14 @@
 import { atom } from 'recoil';
+import { v4 } from 'uuid';
 
 const locationsStore = atom({
     key: 'locationsState',
     default: [
-        {
-            id: 1,
-            name: 'Бассейн',
-        },
-        {
-            id: 2,
-            name: 'Стадион',
-        },
-        {
-            id: 3,
-            name: 'Кладбище',
-        },
-        {
-            id: 4,
-            name: 'Школа',
-        },
-        {
-            id: 5,
-            name: 'Детский сад',
-        },
+        { id: v4(), name: 'Бассейн' },
+        { id: v4(), name: 'Стадион' },
+        { id: v4(), name: 'Кладбище' },
+        { id: v4(), name: 'Школа' },
+        { id: v4(), name: 'Детский сад' },
     ],
 });
 
