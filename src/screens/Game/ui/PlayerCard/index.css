@@ -1,0 +1,18 @@
+.player-card-container {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transition: transform 0.2s ease-in-out;
+    width: 100%;
+    padding: 0 16px;
+}
+
+.player-card {
+    width: calc(100% - 32px);
+    max-width: 300px;
+    margin: 0 auto;
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

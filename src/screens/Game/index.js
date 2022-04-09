@@ -9,16 +9,13 @@ import Cards from './panels/Cards';
 const Game = ({ onActivateTimer, onOpenPlayerChangeNameModal }) => {
     const { screen, setScreen } = useNavigation('main');
 
-    const setScreenValue = screen => () => {
-        setScreen(screen);
-    };
-
     return (
         <View activePanel={screen}>
-            <Main id="main" onGameStart={setScreenValue('cards')} />
+            <Main id="main" onGameStart={() => setScreen('cards')} />
+
             <Cards
                 id="cards"
-                onBack={setScreenValue('main')}
+                onBack={() => setScreen('main')}
                 onLastCard={onActivateTimer}
                 onOpenChangePlayerNameModal={onOpenPlayerChangeNameModal}
             />

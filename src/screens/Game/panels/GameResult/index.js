@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 
-import { Panel, Div, Text, Title, Button } from '@vkontakte/vkui';
+import { Panel, Div, Text, Title, Button, Spacing } from '@vkontakte/vkui';
 import { useRecoilState } from 'recoil';
 import { gameStore } from '../../store';
 import { getPlayerTypeLabel } from '../../../../utils/enum';
@@ -36,12 +36,19 @@ const GameResult = ({ onBack }) => {
                     alignItems: 'center',
                 }}
             >
-                <Text>Побеждает</Text>
-                <Title level="2">{getPlayerTypeLabel(winnerType)}!</Title>
+                <Title level="2" className="center-text" style={{ color: '#999' }}>
+                    Побеждает
+                </Title>
 
-                <Div></Div>
+                <Title level="1" className="center-text">
+                    {getPlayerTypeLabel(winnerType)}!
+                </Title>
 
-                <Text>Шпионы:</Text>
+                <Spacing size={16} />
+
+                <Title level="2" className="center-text">
+                    Шпионы:
+                </Title>
 
                 {game.players
                     .filter(player => player.type === 'spy')

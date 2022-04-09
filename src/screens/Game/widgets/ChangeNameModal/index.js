@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 
 import { Button, Input, ModalCard } from '@vkontakte/vkui';
 import { useRecoilState } from 'recoil';
@@ -10,20 +10,18 @@ const ChangeNameModal = ({ onClose, playerId }) => {
 
     const [playerName, setPlayerName] = useState(game.players.find(player => player.id === playerId)?.name);
 
-    const saveName = () => {
+    const saveName = useCallback(() => {
         const players = [...game.players];
-
         const playerIndex = players.findIndex(player => player.id === playerId);
 
-        const player = { ...players[playerIndex] };
-        console.log(players, playerId, player);
-        player.name = playerName;
-        players.splice(playerIndex, 1, player);
+        players.splice(playerIndex, 1, { ...players[playerIndex], name: playerName });
 
         setGame({ ...game, players });
 
         onClose();
-    };
+    }, [onClose, game, playerId]);
+
+    const onChange = useCallback(e => setPlayerName(e.target.value), []);
 
     return (
         <ModalCard
@@ -36,7 +34,7 @@ const ChangeNameModal = ({ onClose, playerId }) => {
                 </Button>
             }
         >
-            <Input type="text" value={playerName} onChange={e => setPlayerName(e.target.value)} />
+            <Input type="text" value={playerName} onChange={onChange} />
         </ModalCard>
     );
 };

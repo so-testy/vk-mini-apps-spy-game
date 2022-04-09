@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 
-import { Panel, Div, Title, Button, PopoutWrapper } from '@vkontakte/vkui';
+import { Panel, Div, Title, Button, PopoutWrapper, Spacing } from '@vkontakte/vkui';
 import { useRecoilState } from 'recoil';
 import { gameStore } from '../../store';
 import { useTimer } from 'react-timer-hook';
@@ -18,22 +18,11 @@ const Timer = ({ onGameEnd }) => {
         },
     });
 
-    const onPause = useCallback(() => {
-        if (isRunning) {
-            pause();
-        } else {
-            resume();
-        }
-    }, [isRunning]);
+    const onPause = useCallback(() => (isRunning ? pause() : resume()), [isRunning]);
 
     const endGame = useCallback(
         winnerType => {
-            setGame({
-                ...game,
-                gameResult: {
-                    winnerType,
-                },
-            });
+            setGame({ ...game, gameResult: { winnerType } });
 
             onGameEnd();
         },
@@ -101,7 +90,7 @@ const Timer = ({ onGameEnd }) => {
                             Выиграли местные
                         </Button>
 
-                        <Div />
+                        <Spacing size={16} />
 
                         <Title level="2" style={{ color: 'white', textAlign: 'center' }}>
                             Если все проголосовали и раскрыли шпиона
@@ -109,7 +98,7 @@ const Timer = ({ onGameEnd }) => {
                     </Div>
 
                     {!isGameEnded && (
-                        <Button size="l" onClick={onPause} mode="overlay_secondary">
+                        <Button size="l" onClick={onPause} mode="">
                             {'Продолжить'}
                         </Button>
                     )}
@@ -128,7 +117,7 @@ const Timer = ({ onGameEnd }) => {
                             Выиграл шпион
                         </Button>
 
-                        <Div />
+                        <Spacing size={16} />
 
                         <Title level="2" style={{ color: 'white', textAlign: 'center' }}>
                             Если шпион верно назвал локацию

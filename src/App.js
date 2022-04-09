@@ -18,6 +18,7 @@ import {
 import { Icon28GameOutline, Icon28PlaceOutline } from '@vkontakte/icons';
 
 import '@vkontakte/vkui/dist/vkui.css';
+import './index.css';
 
 import Locations from './screens/Locations';
 import Game from './screens/Game';
