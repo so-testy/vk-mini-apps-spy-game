@@ -1,11 +1,19 @@
 import { useState, useMemo } from 'react';
 
-import { Card, Text, Div, Title } from '@vkontakte/vkui';
+import { Card, Text, Div, Title, Button } from '@vkontakte/vkui';
 import ReactCardFlip from 'react-card-flip';
 
 import { getPlayerTypeLabel } from '../../../../utils/enum';
 
-const PlayerCard = ({ playerName, onNext, location, playerType, index, currentCardIndex }) => {
+const PlayerCard = ({
+    playerName,
+    onNext,
+    location,
+    playerType,
+    index,
+    currentCardIndex,
+    onOpenChangePlayerNameModal,
+}) => {
     const [isFlipped, setFlipped] = useState(false);
 
     const playerTypeLabel = useMemo(() => getPlayerTypeLabel(playerType), [playerType]);
@@ -34,13 +42,26 @@ const PlayerCard = ({ playerName, onNext, location, playerType, index, currentCa
                     }}
                     onClick={() => setFlipped(true)}
                 >
-                    <Title level="1" style={{ textAlign: 'center' }}>
-                        {playerName}
-                    </Title>
+                    <Div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                        <Title level="1" style={{ textAlign: 'center' }}>
+                            {playerName}
+                        </Title>
 
-                    <Div />
+                        <Button
+                            mode="secondary"
+                            onClick={e => {
+                                e.stopPropagation();
 
-                    <Text>Нажми, чтобы узнать кто ты</Text>
+                                onOpenChangePlayerNameModal();
+                            }}
+                        >
+                            Изменить имя
+                        </Button>
+
+                        <Div />
+
+                        <Text>Нажми, чтобы узнать кто ты</Text>
+                    </Div>
                 </Card>
 
                 <Card

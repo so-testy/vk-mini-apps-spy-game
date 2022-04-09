@@ -55,7 +55,7 @@ const GameResult = ({ onBack }) => {
             </Div>
 
             <Div style={{ textAlign: 'center' }}>
-                <Button size="l" onClick={onNewGame}>
+                <Button stretched size="l" onClick={onNewGame}>
                     Начать новую игру
                 </Button>
             </Div>

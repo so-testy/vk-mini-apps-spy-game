@@ -26,11 +26,12 @@ import Timer from './screens/Game/panels/Timer';
 import useNavigation from './utils/useNavigation';
 import GameResult from './screens/Game/panels/GameResult';
 import CreateLocationModal from './screens/Locations/widgets/CreateLocationModal';
+import ChangeNameModal from './screens/Game/widgets/ChangeNameModal';
 
 const App = () => {
     const [activeStory, setActiveStory] = useState('game');
     const { screen: activeRootPanel, setScreen: setRootPanel } = useNavigation('main');
-    const { screen: activeModal, setScreen: setActiveModal } = useNavigation(null);
+    const { screen: activeModal, setScreen: setActiveModal, screenParams: activeModalParams } = useNavigation(null);
 
     const onStoryChange = e => setActiveStory(e.currentTarget.dataset.story);
 
@@ -59,7 +60,16 @@ const App = () => {
                     <SplitLayout
                         modal={
                             <ModalRoot activeModal={activeModal}>
-                                <CreateLocationModal id="create-location" onClose={() => setActiveModal(null)} />
+                                <CreateLocationModal
+                                    id="create-location"
+                                    onClose={() => setActiveModal(null)}
+                                    {...activeModalParams}
+                                />
+                                <ChangeNameModal
+                                    id="change-player-name"
+                                    onClose={() => setActiveModal(null)}
+                                    {...activeModalParams}
+                                />
                             </ModalRoot>
                         }
                     >
@@ -91,7 +101,13 @@ const App = () => {
                                         }
                                     >
                                         <View id="game" activePanel="root">
-                                            <Game id="root" onActivateTimer={() => setRootPanel('timer')} />
+                                            <Game
+                                                id="root"
+                                                onActivateTimer={() => setRootPanel('timer')}
+                                                onOpenPlayerChangeNameModal={playerId =>
+                                                    setActiveModal('change-player-name', playerId)
+                                                }
+                                            />
                                         </View>
 
                                         <View id="locations" activePanel="root">

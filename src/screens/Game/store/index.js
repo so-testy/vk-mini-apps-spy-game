@@ -1,4 +1,5 @@
 import { atom } from 'recoil';
+import { v4 } from 'uuid';
 
 const gameStore = atom({
     key: 'gameStore',
@@ -6,9 +7,9 @@ const gameStore = atom({
         playerNumber: 3,
         spyNumber: 1,
         players: [
-            { id: 1, name: 'Игрок 1' },
-            { id: 2, name: 'Игрок 2' },
-            { id: 3, name: 'Игрок 3' },
+            { id: v4(), name: 'Игрок 1' },
+            { id: v4(), name: 'Игрок 2' },
+            { id: v4(), name: 'Игрок 3' },
         ],
         gameLocation: null,
         gameResult: {

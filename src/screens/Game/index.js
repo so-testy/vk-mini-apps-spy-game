@@ -6,7 +6,7 @@ import { View } from '@vkontakte/vkui';
 import useNavigation from '../../utils/useNavigation';
 import Cards from './panels/Cards';
 
-const Game = ({ onActivateTimer }) => {
+const Game = ({ onActivateTimer, onOpenPlayerChangeNameModal }) => {
     const { screen, setScreen } = useNavigation('main');
 
     const setScreenValue = screen => () => {
@@ -16,7 +16,12 @@ const Game = ({ onActivateTimer }) => {
     return (
         <View activePanel={screen}>
             <Main id="main" onGameStart={setScreenValue('cards')} />
-            <Cards id="cards" onBack={setScreenValue('main')} onLastCard={onActivateTimer} />
+            <Cards
+                id="cards"
+                onBack={setScreenValue('main')}
+                onLastCard={onActivateTimer}
+                onOpenChangePlayerNameModal={onOpenPlayerChangeNameModal}
+            />
         </View>
     );
 };

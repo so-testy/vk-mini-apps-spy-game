@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 
-import { Panel, Div, Text, Title, Button, PopoutWrapper } from '@vkontakte/vkui';
+import { Panel, Div, Title, Button, PopoutWrapper } from '@vkontakte/vkui';
 import { useRecoilState } from 'recoil';
 import { gameStore } from '../../store';
 import { useTimer } from 'react-timer-hook';
@@ -135,71 +135,6 @@ const Timer = ({ onGameEnd }) => {
                         </Title>
                     </Div>
                 </PopoutWrapper>
-                {/* <Div
-                    style={{
-                        position: 'absolute',
-                        top: 0,
-                        left: 0,
-                        right: 0,
-                        bottom: 0,
-                        backgroundColor: 'rgba(0,0,0,0.8)',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        flexDirection: 'column',
-                        opacity: isRunning ? 0 : 1,
-                        pointerEvents: isRunning ? 'none' : 'all',
-                        transition: 'all 0.2s ease-in-out',
-                    }}
-                >
-                    <Div
-                        style={{
-                            position: 'absolute',
-                            top: 0,
-                            display: 'flex',
-                            justifyContent: 'center',
-                            flexDirection: 'column',
-                            maxWidth: 300,
-                        }}
-                    >
-                        <Button size="l" onClick={() => endGame('civilian')}>
-                            Выиграли местные
-                        </Button>
-
-                        <Div />
-
-                        <Title level="2" style={{ color: 'white', textAlign: 'center' }}>
-                            Если все проголосовали и раскрыли шпиона
-                        </Title>
-                    </Div>
-
-                    {!isGameEnded && (
-                        <Button size="l" onClick={onPause} mode="overlay_secondary">
-                            {'Продолжить'}
-                        </Button>
-                    )}
-
-                    <Div
-                        style={{
-                            position: 'absolute',
-                            bottom: 0,
-                            display: 'flex',
-                            justifyContent: 'center',
-                            flexDirection: 'column',
-                            maxWidth: 300,
-                        }}
-                    >
-                        <Button size="l" onClick={() => endGame('spy')}>
-                            Выиграл шпион
-                        </Button>
-
-                        <Div />
-
-                        <Title level="2" style={{ color: 'white', textAlign: 'center' }}>
-                            Если шпион верно назвал локацию
-                        </Title>
-                    </Div>
-                </Div> */}
             </div>
         </Panel>
     );

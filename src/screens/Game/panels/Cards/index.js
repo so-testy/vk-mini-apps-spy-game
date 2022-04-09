@@ -5,7 +5,7 @@ import PlayerCard from '../../ui/PlayerCard';
 import { useRecoilState } from 'recoil';
 import { gameStore } from '../../store';
 
-const Cards = ({ onBack, onLastCard }) => {
+const Cards = ({ onBack, onLastCard, onOpenChangePlayerNameModal }) => {
     const [game, setGame] = useRecoilState(gameStore);
 
     const [currentCardIndex, setCurrentCardIndex] = useState(0);
@@ -34,6 +34,11 @@ const Cards = ({ onBack, onLastCard }) => {
                                 }}
                                 index={index}
                                 currentCardIndex={currentCardIndex}
+                                onOpenChangePlayerNameModal={() =>
+                                    onOpenChangePlayerNameModal({
+                                        playerId: id,
+                                    })
+                                }
                             />
                         );
                     })
