@@ -6,20 +6,14 @@ const gameStore = atom({
         playerNumber: 3,
         spyNumber: 1,
         players: [
-            {
-                id: 1,
-                name: 'Игрок 1',
-            },
-            {
-                id: 2,
-                name: 'Игрок 2',
-            },
-            {
-                id: 3,
-                name: 'Игрок 3',
-            },
+            { id: 1, name: 'Игрок 1' },
+            { id: 2, name: 'Игрок 2' },
+            { id: 3, name: 'Игрок 3' },
         ],
         gameLocation: null,
+        gameResult: {
+            winnerType: null,
+        },
     },
 });
 

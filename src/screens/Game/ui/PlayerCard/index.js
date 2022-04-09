@@ -1,18 +1,14 @@
 import { useState, useMemo } from 'react';
 
-import { Card, Text, Div, Button, Title } from '@vkontakte/vkui';
+import { Card, Text, Div, Title } from '@vkontakte/vkui';
 import ReactCardFlip from 'react-card-flip';
+
+import { getPlayerTypeLabel } from '../../../../utils/enum';
 
 const PlayerCard = ({ playerName, onNext, location, playerType, index, currentCardIndex }) => {
     const [isFlipped, setFlipped] = useState(false);
 
-    const playerTypeLabel = useMemo(() => {
-        if (playerType === 'spy') {
-            return 'Шпион';
-        }
-
-        return 'Местный житель';
-    }, [playerType]);
+    const playerTypeLabel = useMemo(() => getPlayerTypeLabel(playerType), [playerType]);
 
     return (
         <Div
@@ -21,10 +17,9 @@ const PlayerCard = ({ playerName, onNext, location, playerType, index, currentCa
                 left: '50%',
                 top: '50%',
                 transform: `translate(${index >= currentCardIndex ? '-50%' : '-200%'}, -50%) scale(${
-                    1 - (index - currentCardIndex) * 0.07
+                    1 - (index - currentCardIndex) * 0.1
                 })`,
                 transition: 'all 0.2s ease-in-out',
-                perspective: 10000,
             }}
         >
             <ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
@@ -45,7 +40,7 @@ const PlayerCard = ({ playerName, onNext, location, playerType, index, currentCa
 
                     <Div />
 
-                    <Text>Нажми, чтобы перевернуть</Text>
+                    <Text>Нажми, чтобы узнать кто ты</Text>
                 </Card>
 
                 <Card
@@ -59,15 +54,21 @@ const PlayerCard = ({ playerName, onNext, location, playerType, index, currentCa
                     }}
                     onClick={onNext}
                 >
+                    <Title level="2" style={{ textAlign: 'center' }}>
+                        {playerName}, ты:
+                    </Title>
+
                     <Title level="1" style={{ textAlign: 'center' }}>
-                        {playerName}
+                        {playerTypeLabel}
                     </Title>
 
                     <Div />
 
-                    <Title level="2" style={{ textAlign: 'center' }}>
-                        {playerTypeLabel}
-                    </Title>
+                    {playerType !== 'spy' && (
+                        <Title level="3" style={{ textAlign: 'center' }}>
+                            Локация: {location.name}
+                        </Title>
+                    )}
 
                     <Div />
 

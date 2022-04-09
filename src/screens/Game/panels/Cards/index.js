@@ -5,7 +5,7 @@ import PlayerCard from '../../ui/PlayerCard';
 import { useRecoilState } from 'recoil';
 import { gameStore } from '../../store';
 
-const Cards = ({ onBack }) => {
+const Cards = ({ onBack, onLastCard }) => {
     const [game, setGame] = useRecoilState(gameStore);
 
     const [currentCardIndex, setCurrentCardIndex] = useState(0);
@@ -26,7 +26,11 @@ const Cards = ({ onBack }) => {
                                 playerType={type}
                                 location={game.gameLocation}
                                 onNext={() => {
-                                    setCurrentCardIndex(prev => prev + 1);
+                                    if (currentCardIndex + 1 >= game.playerNumber) {
+                                        onLastCard();
+                                    } else {
+                                        setCurrentCardIndex(prev => prev + 1);
+                                    }
                                 }}
                                 index={index}
                                 currentCardIndex={currentCardIndex}
