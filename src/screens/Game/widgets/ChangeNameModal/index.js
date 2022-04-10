@@ -19,7 +19,7 @@ const ChangeNameModal = ({ onClose, playerId }) => {
         setGame({ ...game, players });
 
         onClose();
-    }, [onClose, game, playerId]);
+    }, [onClose, game, playerId, playerName]);
 
     const onChange = useCallback(e => setPlayerName(e.target.value), []);
 
