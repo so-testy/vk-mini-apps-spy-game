@@ -1,5 +1,5 @@
-Демонстрация
-https://www.youtube.com/shorts/-nZSscLShDQ
+# Демонстрация
+[![Watch the video](https://img.youtube.com/vi/-nZSscLShDQ/0.jpg)](https://www.youtube.com/shorts/-nZSscLShDQ)
 
 # Условия
 
